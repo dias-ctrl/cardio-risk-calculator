@@ -77,7 +77,7 @@ function NumericInput({ label, value, onChange, min, max, unit, tooltip, step = 
         {label}
         {tooltip && <InfoTooltip text={tooltip} />}
       </Label>
-      <div className="relative flex items-center gap-2">
+      <div className="relative">
         <Input
           type="number"
           value={value}
@@ -85,27 +85,17 @@ function NumericInput({ label, value, onChange, min, max, unit, tooltip, step = 
           max={max}
           step={step}
           onChange={(e) => {
-            const v = e.target.value === '' ? min : parseFloat(e.target.value);
+            const v = parseFloat(e.target.value);
             if (!isNaN(v)) onChange(Math.min(max, Math.max(min, v)));
           }}
-          className="flex-1 bg-white border-border/60 focus:border-primary/50 focus:ring-primary/20 text-sm font-medium"
-          style={{
-            MozAppearance: 'textfield',
-          }}
+          className="pr-12 bg-white border-border/60 focus:border-primary/50 focus:ring-primary/20 text-sm"
         />
         {unit && (
-          <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-medium">
             {unit}
           </span>
         )}
       </div>
-      <style>{`
-        input[type='number']::-webkit-outer-spin-button,
-        input[type='number']::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-      `}</style>
     </div>
   );
 }
