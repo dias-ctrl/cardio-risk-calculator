@@ -458,7 +458,10 @@ function buildRecommendations(input: CardioRiskInput, result: { adjustedRisk: nu
   }
 
   if (input.hdl < (input.gender === 'male' ? 40 : 50)) {
-    recs.push({ priority: 'medium', category: 'HDL Baixo', text: `HDL de ${input.hdl} mg/dL está abaixo do ideal. Exercício aeróbico regular e cessação do tabagismo são as melhores formas de elevar o HDL.`, icon: '📈' });
+    const hdlAdvice = input.isSmoker 
+      ? 'Exercício aeróbico regular e cessação do tabagismo são as melhores formas de elevar o HDL.'
+      : 'Exercício aeróbico regular e dieta rica em gorduras insaturadas são as melhores formas de elevar o HDL.';
+    recs.push({ priority: 'medium', category: 'HDL Baixo', text: `HDL de ${input.hdl} mg/dL está abaixo do ideal. ${hdlAdvice}`, icon: '📈' });
   }
 
   // General recommendation always
