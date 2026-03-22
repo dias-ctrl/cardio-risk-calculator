@@ -81,19 +81,15 @@ function NumericInput({ label, value, onChange, min, max, unit, tooltip, step = 
         <Input
           type="number"
           value={value}
-          min={min}
-          max={max}
-          step={step}
           onChange={(e) => {
-            const inputValue = e.target.value.trim();
-            if (inputValue === '' || inputValue === '-') {
+            const inputValue = e.target.value;
+            if (inputValue === '') {
               onChange(min);
               return;
             }
             const v = parseFloat(inputValue);
             if (!isNaN(v)) {
-              const clampedValue = Math.min(max, Math.max(min, v));
-              onChange(clampedValue);
+              onChange(v);
             }
           }}
           className="pr-12 bg-white border-border/60 focus:border-primary/50 focus:ring-primary/20 text-sm"
