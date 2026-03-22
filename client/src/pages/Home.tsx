@@ -85,8 +85,16 @@ function NumericInput({ label, value, onChange, min, max, unit, tooltip, step = 
           max={max}
           step={step}
           onChange={(e) => {
-            const v = parseFloat(e.target.value);
-            if (!isNaN(v)) onChange(Math.min(max, Math.max(min, v)));
+            const inputValue = e.target.value.trim();
+            if (inputValue === '' || inputValue === '-') {
+              onChange(min);
+              return;
+            }
+            const v = parseFloat(inputValue);
+            if (!isNaN(v)) {
+              const clampedValue = Math.min(max, Math.max(min, v));
+              onChange(clampedValue);
+            }
           }}
           className="pr-12 bg-white border-border/60 focus:border-primary/50 focus:ring-primary/20 text-sm"
         />
